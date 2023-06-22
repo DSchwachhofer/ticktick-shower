@@ -69,7 +69,6 @@ class TickTick():
         pass
 
     async def get_task_list(self):
-        task_list_today = []
         now = datetime.now().date()
 
         response = requests.get(
@@ -79,30 +78,31 @@ class TickTick():
             f"{self.create_time_message()}Fetching list of all projects: {response}", "magenta"))
         if response.status_code != 200:
             print(colored(response.text, "red"))
-            return {"task_name": "SERVER ERROR", "id": ""}
-        project_list = response.json()
-        for item in project_list:
-            list_response = requests.get(
-                f'https://api.ticktick.com/open/v1/project/{item["id"]}/data', headers=HEADERS)
-            print(colored(
-                f"{self.create_time_message()}Fetching tasks for {item['name']}: {list_response}", "magenta"))
-            if list_response.status_code != 200:
-                print(colored(list_response.text, "red"))
-            project = list_response.json()
-            if "tasks" in project:
-                for task in project["tasks"]:
-                    if "dueDate" in task:
-                        task_to_check_date = {"task_name": task["title"], "due_date": (datetime.strptime(
-                            task["dueDate"], "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours=2)).date(), "id": task["id"], "task": task}
-                        if now >= task_to_check_date["due_date"]:
-                            task_today = {
-                                "task_name": task["title"], "id": task["id"], "project_id": item["id"]}
-                            task_list_today.append(task_today)
-
-            await asyncio.sleep(2)
-        print(colored(
-            f"---------------------------------------------------\nTASKS DUE TODAY:\n{task_list_today}\n---------------------------------------------------", "magenta"))
-        return task_list_today
+            yield {"task_name": "SERVER ERROR", "id": ""}
+        else:
+            project_list = response.json()
+            # print(project_list)
+            cleaned_project_list = [
+                project for project in project_list if "closed" not in project or project["closed"] == False]
+            for item in cleaned_project_list:
+                list_response = requests.get(
+                    f'https://api.ticktick.com/open/v1/project/{item["id"]}/data', headers=HEADERS)
+                print(colored(
+                    f"{self.create_time_message()}Fetching tasks for {item['name']}: {list_response}", "magenta"))
+                if list_response.status_code != 200:
+                    print(colored(list_response.text, "red"))
+                project = list_response.json()
+                if "tasks" in project:
+                    for task in project["tasks"]:
+                        if "dueDate" in task:
+                            task_to_check_date = {"task_name": task["title"], "due_date": (datetime.strptime(
+                                task["dueDate"], "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours=2)).date(), "id": task["id"], "task": task}
+                            if now >= task_to_check_date["due_date"]:
+                                task_today = {
+                                    "task_name": task["title"], "id": task["id"], "project_id": item["id"]}
+                                print(colored(task_today, "magenta"))
+                                yield task_today
+                await asyncio.sleep(2)
 
     def complete_task(self, id, project_id):
         response = requests.post(

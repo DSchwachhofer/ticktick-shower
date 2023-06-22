@@ -52,10 +52,17 @@ async def check_tasks_per():
     while True:
         global tasks
         print(f"{create_time_message()}getting tasks from ticktick server")
-        tasks = await tick.get_task_list()
-        print(f"{create_time_message()}updating tasklist")
-        # SEND TASK LIST TO CLIENTS
-        # print(f"{create_time_message()}tasks: {tasks}")
+        async for task in tick.get_task_list():
+            if task["id"] == "":
+                tasks = []
+                tasks.append(task)
+            elif not tasks:
+                tasks.append(task)
+            else:
+                tasks[:] = [
+                    task_el for task_el in tasks if task_el["id"] != task["id"]]
+                tasks.append(task)
+            print(f"{create_time_message()}updating tasklist")
         await asyncio.sleep(10)
 
 
@@ -124,7 +131,8 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             tick.complete_task(id, project_id)
-            # tasks = tick.get_task_list()
+            tasks[:] = [
+                task_el for task_el in tasks if task_el["id"] != id]
         else:
             # serve files as usual
             super().do_GET()
