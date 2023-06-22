@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tick Tick Shower</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="outer-big-container">
+    <div class="big-container div-style left-container">
+      <div class="div-style circle">
+        <p id="countdown"></p>
+        <p id="should-work">start work</p>
+      </div>
+      <div class="timer-btn-container">
+        <div class="timer-btn button" id="timer-start-btn">
+          <p class="timer-btn-text">start</p>
+        </div>
+        <div class="timer-btn button" id="timer-cancel-btn">
+          <p class="timer-btn-text">cancel</p>
+        </div>
+      </div>
+    </div>
+    <div class="big-container div-style right-container">
+      <div class="task-container">
+        <p class="task">getting tasks...</p>
+      </div>
+    </div>
+  </div>
+  <div class="outer-big-container">
+    <div class="small-container div-style left-container">
+      <p class="bottom-text" id="date-time"></p>
+    </div>
+    <div class="smallest-container div-style middle-container">
+      <p class="bottom-text" id="power-text">getting data</p>
+    </div>
+    <div class="smallest-container div-style right-container button">
+      <p class="bottom-text" id="weather-text">getting data</p>
+    </div>
+  </div>
+  <div class="black-box">
+    <p id="big-clock"></p>
+  </div>
+  <script src="scripts/weather.js"></script>
+  <script src="scripts/solar.js"></script>
+  <script src="ip_address.js"></script>
+  <script src="./scripts/clock.js"></script>
+  <script src="./scripts/timer.js"></script>
+  <script src="./scripts/tick.js"></script>
+  <script src="./scripts/app.js"></script>
+</body>
+
+</html>
