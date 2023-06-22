@@ -19,7 +19,7 @@ var tick = {
         taskEL.setAttribute("class", "task")
         taskEL.innerText = "□ " + tasklist[i]["task_name"]
         taskContainer.appendChild(taskEL)
-        taskEL.addEventListener("touchstart", function () {
+        taskEL.addEventListener("click", function () {
           this.style.textDecoration = "line-through"
         })
         taskEL.addEventListener("click", this.completeTask.bind(this, tasklist[i]["id"], tasklist[i]["project_id"], taskEL))
@@ -31,7 +31,7 @@ var tick = {
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
         // Remove Task from Screen
-        console.log("Taks successfully removed")
+        console.log("Task successfully removed")
       }
     }
     xhr.open("GET", "http://" + ip_address + ":7000/completetask?id=" + id + "&projectid=" + projectId)

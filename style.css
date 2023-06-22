@@ -127,3 +127,55 @@ body {
   font-weight: 100;
   margin: 200px auto
 }
+
+
+@media screen and (max-width: 600px) {
+  .outer-big-container {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .big-container {
+    width: 94%;
+    height: 573px;
+    /* height: 530px; */
+  }
+
+  .small-container {
+    width: 94%;
+    height: 120px;
+  }
+
+  .smallest-container {
+    width: 94%;
+  }
+
+  .left-container {
+    margin: auto;
+    margin-bottom: 30px;
+  }
+
+  .right-container {
+    margin: auto;
+    margin-bottom: 30px;
+  }
+
+  .middle-container {
+    margin: auto;
+    margin-bottom: 30px;
+  }
+
+  .circle {
+    border-radius: 50%;
+    width: 365px;
+    height: 365px;
+
+    margin-top: 50px;
+  }
+
+  #big-clock {
+    font-size: 150px;
+    margin: 400px auto
+  }
+}
