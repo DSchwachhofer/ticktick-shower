@@ -59,9 +59,14 @@ async def check_tasks_per():
             elif not tasks:
                 tasks.append(task)
             else:
-                tasks[:] = [
-                    task_el for task_el in tasks if task_el["id"] != task["id"]]
-                tasks.append(task)
+                # First, check if the task is in the list
+                if any(task_el["id"] == task["id"] for task_el in tasks):
+                    # If it is, update it
+                    tasks[:] = [task_el if task_el["id"] !=
+                                task["id"] else task for task_el in tasks]
+                else:
+                    # If it's not, add it
+                    tasks.append(task)
             print(f"{create_time_message()}updating tasklist")
         await asyncio.sleep(10)
 
