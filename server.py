@@ -31,19 +31,32 @@ def create_time_message():
     current_time = now.strftime("%c")
     return f"[{current_time}] : "
 
+def set_ticktick_update_countdown():
+    # get current time
+    hour = dt.datetime.now().hour
+    if hour < 5:
+        print(f"{create_time_message()}Setting TickTick update interval to 15 minutes")
+        return 900
+    else:
+        print(f"{create_time_message()}Setting TickTick update interval to 10 seconds")
+        return 10
+
 
 async def check_tasks_per():
     while True:
+        countdown = set_ticktick_update_countdown()
         global tasks
         # create second fresh list with every run
         # is also used to remove task whichare removed in ticktick app
         tasks_backup = []
         print(f"{create_time_message()}getting tasks from ticktick server")
         async for task in tick.get_task_list():
-            
+            # error, can't get project list
             if task["id"] == "":
                 tasks = []
                 tasks.append(task)
+                countdown = 900
+            # start with empty project list
             elif not tasks:
                 tasks.append(task)
             else:
@@ -58,7 +71,7 @@ async def check_tasks_per():
             tasks_backup.append(task)
             print(f"{create_time_message()}updating tasklist")
         tasks[:] = [task for task in tasks_backup]
-        await asyncio.sleep(10)
+        await asyncio.sleep(countdown)
 
 
 async def check_weather_per():
