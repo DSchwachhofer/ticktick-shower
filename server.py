@@ -9,7 +9,6 @@ import asyncio
 import datetime as dt
 import threading
 import urllib.parse
-import subprocess
 from termcolor import colored
 import os
 
@@ -31,21 +30,6 @@ def create_time_message():
     now = dt.datetime.now()
     current_time = now.strftime("%c")
     return f"[{current_time}] : "
-
-
-def is_dark_mode():
-    try:
-        theme = subprocess.check_output(
-            ['defaults', 'read', '-g', 'AppleInterfaceStyle'],
-            stderr=subprocess.DEVNULL,
-        ).decode().strip()
-        # print("dark mode")
-        return "dark"
-    except subprocess.CalledProcessError:
-        # CalledProcessError is raised if 'defaults read -g AppleInterfaceStyle' fails.
-        # This is the case when the OS is in light mode because the AppleInterfaceStyle key doesn't exist.
-        print("light mode")
-        return "light"
 
 
 async def check_tasks_per():
@@ -115,7 +99,6 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
         if parsed_path.path == "/update":
             # print(f"{create_time_message()}getting updates...")
             update = {
-                "dark_mode": is_dark_mode(),
                 "task_list": tasks,
                 "power": power,
                 "temp": temp

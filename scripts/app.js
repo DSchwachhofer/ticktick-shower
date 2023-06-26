@@ -6,7 +6,6 @@ var allData = {
   "temp": 0,
   "power": 0,
   "task_list": [],
-  "dark_mode": "dark"
 }
 
 function updateAll(data) {
@@ -18,13 +17,6 @@ function updateAll(data) {
   }
   if (JSON.stringify(data["task_list"]) !== JSON.stringify(allData["task_list"])) {
     tick.printTaskList(data["task_list"])
-  }
-  if (data["dark_mode"] === "dark") {
-    bodyEl.style.backgroundColor = "black"
-    bodyEl.style.color = "#14ff39"
-  } else {
-    bodyEl.style.backgroundColor = "#dcdcdc"
-    bodyEl.style.color = "#141414"
   }
 
 
@@ -50,7 +42,6 @@ function getUpdate() {
         "temp": "--",
         "power": -1,
         "task_list": [{ task_name: "SERVER NOT RUNNING" }],
-        "dark_mode": "dark"
       }
       if (count === 5) {
         updateAll(noData)
