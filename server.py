@@ -35,8 +35,12 @@ def create_time_message():
 async def check_tasks_per():
     while True:
         global tasks
+        # create second fresh list with every run
+        # is also used to remove task whichare removed in ticktick app
+        tasks_backup = []
         print(f"{create_time_message()}getting tasks from ticktick server")
         async for task in tick.get_task_list():
+            
             if task["id"] == "":
                 tasks = []
                 tasks.append(task)
@@ -51,7 +55,9 @@ async def check_tasks_per():
                 else:
                     # If it's not, add it
                     tasks.append(task)
+            tasks_backup.append(task)
             print(f"{create_time_message()}updating tasklist")
+        tasks[:] = [task for task in tasks_backup]
         await asyncio.sleep(10)
 
 

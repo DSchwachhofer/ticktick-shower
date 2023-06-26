@@ -4,7 +4,7 @@ var xhr = new XMLHttpRequest();
 
 var allData = {
   "temp": 0,
-  "power": 0,
+  "power": -1,
   "task_list": [],
 }
 
