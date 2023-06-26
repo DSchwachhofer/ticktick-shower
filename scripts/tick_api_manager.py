@@ -9,11 +9,15 @@ from termcolor import colored
 import os
 from dotenv import load_dotenv
 load_dotenv()
+import logging
 
 CLIENT_ID = os.getenv("TICK_CLIENT_ID")
 CLIENT_SECRET = os.getenv("TICK_CLIENT_SECRET")
 REDIRECT_URI = os.getenv("TICK_REDIRECT_URI")
 ACCESS_TOKEN = os.getenv("TICK_ACCESS_TOKEN")
+
+# init logger
+logger = logging.getLogger("ticktick_logger")
 
 SCOPE = "tasks:read tasks:write"  # The permissions your app needs
 # This can be any string - it's used to prevent CSRF attacks
@@ -76,8 +80,10 @@ class TickTick():
 
         print(colored(
             f"{self.create_time_message()}Fetching list of all projects: {response}", "magenta"))
+        logger.info(f"Fetching list of all projects: {response}")
         if response.status_code != 200:
             print(colored(response.text, "red"))
+            logger.error(response.text)
             yield {"task_name": "SERVER ERROR", "id": ""}
         else:
             project_list = response.json()
@@ -89,8 +95,10 @@ class TickTick():
                     f'https://api.ticktick.com/open/v1/project/{item["id"]}/data', headers=HEADERS)
                 print(colored(
                     f"{self.create_time_message()}Fetching tasks for {item['name']}: {list_response}", "magenta"))
+                logger.info(f"Fetching tasks for {item['name']}: {list_response}")
                 if list_response.status_code != 200:
                     print(colored(list_response.text, "red"))
+                    logger.warning(list_response.text)
                 project = list_response.json()
                 if "tasks" in project:
                     for task in project["tasks"]:
@@ -101,6 +109,7 @@ class TickTick():
                                 task_today = {
                                     "task_name": task["title"], "id": task["id"], "project_id": item["id"]}
                                 print(colored(task_today, "magenta"))
+                                logger.info(task_today)
                                 yield task_today
                 await asyncio.sleep(2)
 
@@ -109,8 +118,10 @@ class TickTick():
             f'https://api.ticktick.com/open/v1/project/{project_id}/task/{id}/complete', headers=HEADERS)
         print(colored(
             f"{self.create_time_message()}Trying to complete task {response}", "magenta"))
+        logger.info( f"Trying to complete task {response}")
         if response.status_code != 200:
             print(colored(response.text, "red"))
+            logger.warning(response.text)
 
     def create_time_message(self):
         now = datetime.now()
