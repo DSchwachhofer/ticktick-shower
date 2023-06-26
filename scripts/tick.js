@@ -14,7 +14,7 @@ var tick = {
     }
     else {
       for (var i = 0; i < tasklist.length; i++) {
-        console.log(tasklist)
+        // console.log(tasklist)
         var taskEL = document.createElement("p")
         taskEL.setAttribute("class", "task")
         taskEL.innerText = "□ " + tasklist[i]["task_name"]
@@ -27,7 +27,7 @@ var tick = {
     }
   },
   completeTask(id, projectId, taskEL) {
-    console.log("completing task with ID" + id)
+    // console.log("completing task with ID" + id)
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
         // Remove Task from Screen
