@@ -1,7 +1,12 @@
 import requests
 import os
+import logging
+from termcolor import colored
 from dotenv import load_dotenv
 load_dotenv()
+
+# init logger
+logger = logging.getLogger("ticktick_logger")
 
 API_KEY = os.getenv("WEATHER_API_KEY")
 LATITUDE = os.getenv("WEATHER_LATITUDE")
@@ -21,6 +26,11 @@ class WeatherManager():
         pass
 
     def get_weather(self):
-        response = requests.get(url=ENDPOINT, params=params)
-        temp = response.json()["main"]["temp"]
+        try:
+            response = requests.get(url=ENDPOINT, params=params, timeout=30)
+            temp = response.json()["main"]["temp"]
+        except requests.exceptions.Timeout:
+            print(colored("Request timed out", "red"))
+            logger.error("Request timed out")
+            return "SERVER ERROR"
         return temp

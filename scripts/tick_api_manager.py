@@ -74,13 +74,17 @@ class TickTick():
 
     async def get_task_list(self):
         now = datetime.now().date()
-
-        response = requests.get(
-            'https://api.ticktick.com/open/v1/project', headers=HEADERS)
-
-        print(colored(
+        try:
+            response = requests.get(
+            'https://api.ticktick.com/open/v1/project', headers=HEADERS, timeout=30)
+            print(colored(
             f"{self.create_time_message()}Fetching list of all projects: {response}", "magenta"))
-        logger.info(f"Fetching list of all projects: {response}")
+            logger.info(f"Fetching list of all projects: {response}")
+        except requests.exceptions.Timeout:
+            print(colored("Request timed out", "red"))
+            logger.error("Request timed out")
+            yield {"task_name": "SERVER ERROR", "id": ""}
+        
         if response.status_code != 200:
             print(colored(response.text, "red"))
             logger.error(response.text)
@@ -91,14 +95,21 @@ class TickTick():
             cleaned_project_list = [
                 project for project in project_list if "closed" not in project or project["closed"] == False]
             for item in cleaned_project_list:
-                list_response = requests.get(
-                    f'https://api.ticktick.com/open/v1/project/{item["id"]}/data', headers=HEADERS)
-                print(colored(
+                try:
+                    list_response = requests.get(
+                    f'https://api.ticktick.com/open/v1/project/{item["id"]}/data', headers=HEADERS, timeout=30)
+                    print(colored(
                     f"{self.create_time_message()}Fetching tasks for {item['name']}: {list_response}", "magenta"))
-                logger.info(f"Fetching tasks for {item['name']}: {list_response}")
+                    logger.info(f"Fetching tasks for {item['name']}: {list_response}")
+                except requests.exceptions.Timeout:
+                    print(colored("Request timed out", "red"))
+                    logger.error("Request timed out")
+                    yield {"task_name": "SERVER ERROR", "id": ""}
+
                 if list_response.status_code != 200:
                     print(colored(list_response.text, "red"))
                     logger.warning(list_response.text)
+                    yield {"task_name": "SERVER ERROR", "id": ""}
                 project = list_response.json()
                 if "tasks" in project:
                     for task in project["tasks"]:
