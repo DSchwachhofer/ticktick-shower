@@ -102,17 +102,32 @@ async def check_weather_per():
         await asyncio.sleep(60)
 
 
+async def get_power_async():
+    loop = asyncio.get_event_loop()
+    future = loop.run_in_executor(None, solar.get_power)
+    power = await future
+    return power
+
 async def check_solar_power_per():
     while True:
         global power
         print(f"{create_time_message()}getting power data from solar edge server")
         logger.info("getting power data from solar edge server")
-        power = solar.get_power()
+        try:
+            power = await asyncio.wait_for(get_power_async(), timeout=30.0)
+        except asyncio.TimeoutError:
+            print(f"{create_time_message()}Fetching power data from solar edge server timed out.")
+            logger.error("Fetching power data from solar edge server timed out.")
+            power = -1
         print(f"{create_time_message()}updating power")
         logger.info("updating power")
         # SEND SOLAR TO CLIENTS
-        print(f"{create_time_message()}power: {power}kwh")
-        logger.info(f"power: {power}kwh")
+        if power != -1:
+            print(f"{create_time_message()}power: {power}kwh")
+            logger.info(f"power: {power}kwh")
+        else:
+            print(f"{create_time_message()}power data not available")
+            logger.info("power data not available")
         await asyncio.sleep(300)
 
 
