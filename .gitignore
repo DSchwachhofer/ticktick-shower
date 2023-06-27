@@ -11,6 +11,9 @@ ticktick_shower_env
 .AppleDouble
 .LSOverride
 
+### NAS ###
+@eaDir/
+
 # Icon must end with two \r
 Icon
 
