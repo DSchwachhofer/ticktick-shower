@@ -4,12 +4,14 @@ from scripts.weather_manager import WeatherManager
 import http.server
 import socketserver
 import json
-import netifaces
+try:
+    import netifaces
+except ImportError:
+    print("Netifaces module not found. Continuing execution.")
 import asyncio
 import datetime as dt
 import threading
 import urllib.parse
-from termcolor import colored
 import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
@@ -117,12 +119,15 @@ async def check_solar_power_per():
 PORT = 7000
 
 # Get IP address of local machine on local network
-for interface in netifaces.interfaces():
-    addrs = netifaces.ifaddresses(interface)
-    if netifaces.AF_INET in addrs:
-        ip_address = addrs[netifaces.AF_INET][0]['addr']
-        if not ip_address.startswith('127.'):
-            break
+try:
+    for interface in netifaces.interfaces():
+        addrs = netifaces.ifaddresses(interface)
+        if netifaces.AF_INET in addrs:
+            ip_address = addrs[netifaces.AF_INET][0]['addr']
+            if not ip_address.startswith('127.'):
+                break
+except:
+    ip_address = os.getenv("NAS_IP_ADRESS")
 print(ip_address)
 logger.info(f"IP_ADRESS: {ip_address}")
 
