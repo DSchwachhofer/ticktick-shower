@@ -1,7 +1,23 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: black;
   color: #39ff14;
   font-family: Avenir, Arial, Helvetica, sans-serif;
+}
+
+.full-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
 
 .div-style {
@@ -11,58 +27,70 @@ body {
 
 .outer-big-container {
   display: flex;
+  justify-content: center;
   width: 100%;
-  margin-top: 25px;
 }
 
 .big-container {
   width: 47%;
-  /* height: 573px; */
-  height: 530px;
+  height: 70vh;
+  margin: 0.75%;
 }
 
-.small-container {
+.pomodoro-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.outer-small-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 47%;
-  height: 120px;
+  height: 18vh;
+  margin: 0.75%
 }
 
-.smallest-container {
-  width: 22.5%;
+.inner-small-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-.left-container {
-  margin-left: 2%;
-  margin-right: 1%;
+.inner-smallest-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 47%;
+  height: 100%;
 }
 
-.right-container {
-  margin-left: 1%;
-  margin-right: 2%;
-}
-
-.middle-container {
-  margin-left: 1%;
-  margin-right: 1%;
-}
 
 .black-box {
   width: 100%;
   height: 200px;
 }
 
+
 .circle {
   border-radius: 50%;
-  width: 375px;
-  height: 375px;
-  margin: auto;
-  margin-top: 50px;
+  width: 45vmin;
+  height: 45vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .task-container {
-  margin: 50px;
+  margin: 7%;
   padding: 0;
   overflow: auto;
-  height: 473px;
+  height: 86%;
 }
 
 .task {
@@ -71,24 +99,21 @@ body {
 }
 
 #countdown {
-  margin-top: 140px;
-  margin-bottom: 0;
-  padding: 0;
   text-align: center;
   font-size: 75px;
+  margin: 0;
 }
 
 #should-work {
-  margin-top: 10px;
-  padding: 0;
   text-align: center;
   font-size: 18px;
+  margin: 0;
 }
 
 .timer-btn-container {
   display: flex;
   width: 100%;
-  margin-top: 40px;
+  margin-top: 4vh;
   justify-content: center;
 }
 
@@ -97,19 +122,21 @@ body {
   border-radius: 10px;
   height: 48px;
   width: 120px;
-  margin: 0 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 4%
 }
 
 .timer-btn-text {
   text-align: center;
   font-size: 18px;
-  margin-top: 12px;
+  margin: 0;
 }
 
 .bottom-text {
   text-align: center;
   font-size: 25px;
-  margin-top: 44px;
 }
 
 
@@ -121,49 +148,50 @@ body {
   display: none;
 }
 
-
 @media screen and (max-width: 600px) {
   .outer-big-container {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
+    flex-direction: column;
   }
 
   .big-container {
-    width: 94%;
-    height: 573px;
-    /* height: 530px; */
+    width: 95%;
+    height: 35vh;
+    margin: 1.5%;
   }
 
-  .small-container {
-    width: 94%;
-    height: 120px;
+  .outer-small-container {
+    width: 95%;
+    height: 10vh;
+    margin: 1.5%
   }
 
-  .smallest-container {
-    width: 94%;
+  #countdown {
+    font-size: 35px;
   }
 
-  .left-container {
-    margin: auto;
-    margin-bottom: 30px;
+  .timer-btn-container {
+    margin-top: 2vh;
   }
 
-  .right-container {
-    margin: auto;
-    margin-bottom: 30px;
+  .task {
+    font-size: 20px;
   }
 
-  .middle-container {
-    margin: auto;
-    margin-bottom: 30px;
+  .bottom-text {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  #countdown {
+    font-size: 35px;
   }
 
-  .circle {
-    border-radius: 50%;
-    width: 365px;
-    height: 365px;
+  .task {
+    font-size: 20px;
+  }
 
-    margin-top: 50px;
+  .bottom-text {
+    font-size: 20px;
   }
 }

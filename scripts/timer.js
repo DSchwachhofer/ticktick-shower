@@ -66,7 +66,7 @@ function runTimer() {
 
 function continueTimer() {
   playAudio("silence")
-  timerCancelBtn.style.display = "block"
+  timerCancelBtn.style.display = "flex"
   timerCancelText.innerText = "cancel"
   timerStartText.innerText = "pause"
   if (currentTimerIsWork) {

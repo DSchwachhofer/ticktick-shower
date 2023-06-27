@@ -43,7 +43,7 @@ Temporary Items
 __pycache__/
 *.py[cod]
 *$py.class
-app.log
+app.log.*
 
 # C extensions
 *.so

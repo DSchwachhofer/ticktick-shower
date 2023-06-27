@@ -10,39 +10,45 @@
 </head>
 
 <body>
-  <div class="outer-big-container">
-    <div class="big-container div-style left-container">
-      <div class="div-style circle">
-        <p id="countdown"></p>
-        <p id="should-work">start work</p>
-      </div>
-      <div class="timer-btn-container">
-        <div class="timer-btn button" id="timer-start-btn">
-          <p class="timer-btn-text">start</p>
+  <div class="full-page">
+    <div class="outer-big-container">
+      <div class="big-container pomodoro-container div-style">
+        <div class="div-style circle">
+          <p id="countdown"></p>
+          <p id="should-work">start work</p>
         </div>
-        <div class="timer-btn button" id="timer-cancel-btn">
-          <p class="timer-btn-text">cancel</p>
+        <div class="timer-btn-container">
+          <div class="timer-btn button" id="timer-start-btn">
+            <p class="timer-btn-text">start</p>
+          </div>
+          <div class="timer-btn button" id="timer-cancel-btn">
+            <p class="timer-btn-text">cancel</p>
+          </div>
+        </div>
+      </div>
+      <div class="big-container div-style">
+        <div class="task-container">
+          <p class="task">getting tasks...</p>
         </div>
       </div>
     </div>
-    <div class="big-container div-style right-container">
-      <div class="task-container">
-        <p class="task">getting tasks...</p>
+    <div class="outer-big-container">
+      <div class="outer-small-container div-style">
+        <div class="inner-small-container">
+          <p class="bottom-text" id="date-time"></p>
+        </div>
+      </div>
+      <div class="outer-small-container">
+        <div class="inner-smallest-container div-style">
+          <p class="bottom-text" id="power-text">getting data</p>
+        </div>
+        <div class="inner-smallest-container div-style">
+          <p class="bottom-text" id="weather-text">getting data</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="outer-big-container">
-    <div class="small-container div-style left-container">
-      <p class="bottom-text" id="date-time"></p>
-    </div>
-    <div class="smallest-container div-style middle-container">
-      <p class="bottom-text" id="power-text">getting data</p>
-    </div>
-    <div class="smallest-container div-style right-container">
-      <p class="bottom-text" id="weather-text">getting data</p>
-    </div>
-  </div>
-  <div class="black-box"></div>
+  <!-- <div class="black-box"></div> -->
   <script src="scripts/weather.js"></script>
   <script src="scripts/solar.js"></script>
   <script src="ip_address.js"></script>
