@@ -7,9 +7,9 @@ var shouldWorkEl = document.getElementById("should-work")
 var pomAmountEl = document.getElementById("pom-amount")
 
 // CONSTANTS:
-var WORKTIME = 10 //* 60
-var SHORT_BREAK = 5 //* 60
-var LONG_BREAK = 15 //* 60
+var WORKTIME = 25 * 60
+var SHORT_BREAK = 5 * 60
+var LONG_BREAK = 15 * 60
 var breaksCounter = 0
 var currentTimerIsWork = true
 
