@@ -98,6 +98,12 @@ body {
   margin-top: 0;
 }
 
+#pom-amount {
+  text-align: center;
+  font-size: 25px;
+  margin: 0;
+}
+
 #countdown {
   text-align: center;
   font-size: 75px;
@@ -180,6 +186,10 @@ body {
   .bottom-text {
     font-size: 20px;
   }
+
+  #pom-amount {
+    font-size: 15px;
+  }
 }
 
 @media screen and (max-height: 600px) {
@@ -193,5 +203,9 @@ body {
 
   .bottom-text {
     font-size: 20px;
+  }
+
+  #pom-amount {
+    font-size: 15px;
   }
 }

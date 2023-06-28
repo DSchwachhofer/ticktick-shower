@@ -11,6 +11,7 @@ var tick = {
       var taskEL = document.createElement("p")
       taskEL.setAttribute("class", "task")
       taskEL.innerText = "you have finished all tasks for today"
+      taskContainer.appendChild(taskEL)
     }
     else {
       for (var i = 0; i < tasklist.length; i++) {

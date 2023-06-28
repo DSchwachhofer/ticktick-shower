@@ -4,11 +4,12 @@ var timerStartText = document.querySelector("#timer-start-btn p")
 var timerCancelBtn = document.getElementById("timer-cancel-btn")
 var timerCancelText = document.querySelector("#timer-cancel-btn p")
 var shouldWorkEl = document.getElementById("should-work")
+var pomAmountEl = document.getElementById("pom-amount")
 
 // CONSTANTS:
-var WORKTIME = 25 * 60
-var SHORT_BREAK = 5 * 60
-var LONG_BREAK = 15 * 60
+var WORKTIME = 10 //* 60
+var SHORT_BREAK = 5 //* 60
+var LONG_BREAK = 15 //* 60
 var breaksCounter = 0
 var currentTimerIsWork = true
 
@@ -39,6 +40,19 @@ function displayTimeLeft() {
   countdownEL.innerText = minutes + ":" + seconds
 }
 
+function displayPomAmount() {
+  var pomAmount = breaksCounter % 4
+  if (pomAmount === 0) {
+    pomAmountEl.innerText = "-"
+  } else {
+    var text = " "
+    for (var i = 0; i < pomAmount; i++) {
+      text = text + "√ "
+    }
+    pomAmountEl.innerText = text
+  }
+}
+
 function runTimer() {
   timerCountDown -= 1
   if (timerCountDown === 0) {
@@ -53,6 +67,7 @@ function runTimer() {
       shouldWorkEl.innerText = "start work"
     } else {
       breaksCounter += 1
+      displayPomAmount()
       shouldWorkEl.innerText = "start break"
       if (breaksCounter % 4 === 0) {
         timerCountDown = LONG_BREAK
@@ -65,6 +80,7 @@ function runTimer() {
 }
 
 function continueTimer() {
+  displayPomAmount()
   playAudio("silence")
   timerCancelBtn.style.display = "flex"
   timerCancelText.innerText = "cancel"
@@ -86,6 +102,7 @@ function pauseTimer() {
 function cancelTimer() {
   if (timerCancelText.innerText === "reset") {
     breaksCounter = 0
+    displayPomAmount()
     timerCancelBtn.style.display = "none"
   }
   shouldWorkEl.innerText = "start work"
