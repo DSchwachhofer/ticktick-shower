@@ -1,6 +1,7 @@
 from scripts.tick_api_manager import TickTick
 from scripts.solar_manager import SolarManager
 from scripts.weather_manager import WeatherManager
+from scripts.send_whatsapp import SendWhatsApp
 import http.server
 import socketserver
 import json
@@ -22,10 +23,12 @@ load_dotenv()
 tick = TickTick()
 solar = SolarManager()
 weather = WeatherManager()
+send_whats_app = SendWhatsApp()
 
 tasks = []
 temp = 0
 power = -1
+
 
 # configure logging module
 logger = logging.getLogger("ticktick_logger")
@@ -180,6 +183,12 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             tick.complete_task(id, project_id)
             tasks[:] = [
                 task_el for task_el in tasks if task_el["id"] != id]
+        elif parsed_path.path == "/sendmessage":
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            send_whats_app.send_message()
         else:
             # serve files as usual
             super().do_GET()

@@ -6,6 +6,8 @@ var timerCancelText = document.querySelector("#timer-cancel-btn p")
 var shouldWorkEl = document.getElementById("should-work")
 var pomAmountEl = document.getElementById("pom-amount")
 
+var xhr = new XMLHttpRequest();
+
 // CONSTANTS:
 var WORKTIME = 25 * 60
 var SHORT_BREAK = 5 * 60
@@ -63,6 +65,7 @@ function runTimer() {
     timerIsRunning = false
     currentTimerIsWork = !currentTimerIsWork
     if (currentTimerIsWork) {
+      sendMessage()
       timerCountDown = WORKTIME
       shouldWorkEl.innerText = "start work"
     } else {
@@ -115,6 +118,15 @@ function cancelTimer() {
   displayTimeLeft()
 }
 
+function sendMessage() {
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      console.log("SENDING WHAT'S APP MESSAGE")
+    }
+  }
+  xhr.open("GET", "http://" + ip_address + ":7000/sendmessage")
+  xhr.send();
+}
 
 function startStopHandler() {
   if (!timerIsRunning) {
