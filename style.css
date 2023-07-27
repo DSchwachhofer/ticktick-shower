@@ -77,6 +77,7 @@ body {
 
 
 .circle {
+  position: relative;
   border-radius: 50%;
   width: 45vmin;
   height: 45vmin;
@@ -84,6 +85,19 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+#pomodoro-inner-circle {
+  position: absolute;
+  border-radius: 50%;
+  width: 45vmin;
+  height: 45vmin;
+  background-color: #176608;
+  z-index: -100;
+  border: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .task-container {
@@ -103,6 +117,8 @@ body {
   font-size: 25px;
   margin: 0;
 }
+
+
 
 #countdown {
   text-align: center;

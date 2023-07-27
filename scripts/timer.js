@@ -5,6 +5,7 @@ var timerCancelBtn = document.getElementById("timer-cancel-btn")
 var timerCancelText = document.querySelector("#timer-cancel-btn p")
 var shouldWorkEl = document.getElementById("should-work")
 var pomAmountEl = document.getElementById("pom-amount")
+var innerCicleEl = document.getElementById("pomodoro-inner-circle")
 
 var xhr = new XMLHttpRequest();
 
@@ -19,6 +20,7 @@ var timerId
 
 var timerIsRunning = false
 var timerCountDown = 0
+var totalSeconds = WORKTIME
 
 var audio = new Audio()
 
@@ -33,6 +35,7 @@ function playAudio(file) {
 
 function setStartTime() {
   timerCountDown = WORKTIME
+  totalSeconds = timerCountDown
   displayTimeLeft()
 }
 
@@ -40,6 +43,15 @@ function displayTimeLeft() {
   var minutes = Math.floor(timerCountDown / 60)
   var seconds = clock.formatTime(timerCountDown % 60)
   countdownEL.innerText = minutes + ":" + seconds
+  // calculate percentage of time which has gone by
+  var percentage = - timerCountDown / totalSeconds + 1
+  console.log(percentage)
+  innerCicleEl.style.width = percentage * 45 + "vmin"
+  innerCicleEl.style.height = percentage * 45 + "vmin"
+  if (percentage === 0) {
+    innerCicleEl.style.width = "45vmin"
+    innerCicleEl.style.height = "45vmin"
+  }
 }
 
 function displayPomAmount() {
@@ -78,6 +90,7 @@ function runTimer() {
         timerCountDown = SHORT_BREAK
       }
     }
+    totalSeconds = timerCountDown
   }
   displayTimeLeft()
 }
@@ -113,6 +126,7 @@ function cancelTimer() {
   clearInterval(timerId)
   timerStartText.innerText = "start"
   timerCountDown = WORKTIME
+  totalSeconds = timerCountDown
   timerIsRunning = false
   currentTimerIsWork = true
   displayTimeLeft()
