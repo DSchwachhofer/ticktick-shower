@@ -14,6 +14,7 @@ import datetime as dt
 import threading
 import urllib.parse
 import os
+from termcolor import colored
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
@@ -219,17 +220,29 @@ def start_server():
 
 
 async def main():
-    loop = asyncio.get_event_loop()
-
     server_thread = threading.Thread(target=start_server)
     server_thread.start()
 
-    tasks = [
-        loop.create_task(check_tasks_per()),
-        loop.create_task(check_weather_per()),
-        loop.create_task(check_solar_power_per())
-    ]
+    while True:  # run tasks infinitely
+        try:
+            print(f"{create_time_message()}Starting new threads for server tasks")
+            logger.info("Starting new threads for server tasks")
+            tasks = [
+                asyncio.create_task(check_tasks_per()),
+                asyncio.create_task(check_weather_per()),
+                asyncio.create_task(check_solar_power_per())
+            ]
 
-    await asyncio.wait(tasks)
+            await asyncio.sleep(3600)  # sleep for one hour
+
+        except Exception as e:
+            print(colored(f"{create_time_message()}Error occurred: {e}", "red"))
+            logger.error(f"Error occurred: {e}")
+            
+        finally:
+            for task in tasks:  
+                task.cancel()  # cancel tasks after an hour or when an exception occurs
+
+        # if tasks are done or cancelled, the while loop will start again, restarting the tasks
 
 asyncio.run(main())
