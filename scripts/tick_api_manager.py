@@ -15,6 +15,7 @@ CLIENT_ID = os.getenv("TICK_CLIENT_ID")
 CLIENT_SECRET = os.getenv("TICK_CLIENT_SECRET")
 REDIRECT_URI = os.getenv("TICK_REDIRECT_URI")
 ACCESS_TOKEN = os.getenv("TICK_ACCESS_TOKEN")
+WEEKLY_PROJECT_ID = os.getenv("TICK_WEEKLY_ID")
 
 # init logger
 logger = logging.getLogger("ticktick_logger")
@@ -125,7 +126,7 @@ class TickTick():
                 await asyncio.sleep(2)
 
     def get_weekly_tasks(self):
-        weekly_tasks_project_id = "64c1bfc449b211022bfe0ad7"
+        weekly_tasks_project_id = WEEKLY_PROJECT_ID
         try:
             response = requests.get( f'https://api.ticktick.com/open/v1/project/{weekly_tasks_project_id}/data', headers=HEADERS, timeout=30)
             print(colored(f"{self.create_time_message()}Fetching weekly tasks", "magenta"))
@@ -140,9 +141,10 @@ class TickTick():
             return [{"task_name": "SERVER ERROR", "id": ""}]
         else:    
             project_data= response.json()
-            print(project_data)
+            # print(project_data)
             task_list = [{"task_name": task["title"], "id": task["id"], "project_id": weekly_tasks_project_id} for task in project_data["tasks"]]
-            print(task_list)
+            print(colored(task_list, "magenta"))
+            logger.info(task_list)
             return task_list
 
     def complete_task(self, id, project_id):
