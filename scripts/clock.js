@@ -17,7 +17,8 @@ var clock = {
     var month = clock.formatTime(t.getMonth() + 1)
     var year = clock.formatTime(t.getFullYear())
 
-    var dateTime = day + "." + month + "." + year + " " + hours + ":" + minutes
+    // var dateTime = day + "." + month + "." + year + " " + hours + ":" + minutes
+    var dateTime = hours + ":" + minutes
 
     dateTimeEl.innerText = dateTime
   },

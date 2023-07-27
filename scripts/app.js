@@ -6,6 +6,8 @@ var allData = {
   "temp": 0,
   "power": -1,
   "task_list": [],
+  "weekly_tasks": [],
+  "task_type": "daily"
 }
 
 function updateAll(data) {
@@ -15,8 +17,12 @@ function updateAll(data) {
   if (data["power"] !== allData["power"]) {
     solar.printPower(data["power"])
   }
-  if (JSON.stringify(data["task_list"]) !== JSON.stringify(allData["task_list"])) {
-    tick.printTaskList(data["task_list"])
+  if (JSON.stringify(
+    data["task_list"]) !== JSON.stringify(allData["task_list"])
+    || JSON.stringify(data["weekly_tasks"]) !== JSON.stringify(allData["weekly_tasks"])
+    || JSON.stringify(data["task_type"]) !== JSON.stringify(allData["task_type"])
+  ) {
+    tick.printTaskList(data["task_list"], data["weekly_tasks"], data["task_type"])
   }
 
 

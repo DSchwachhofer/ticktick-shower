@@ -28,6 +28,8 @@ send_whats_app = SendWhatsApp()
 tasks = []
 temp = 0
 power = -1
+weekly_tasks = []
+task_type = "daily"
 
 
 # configure logging module
@@ -61,11 +63,15 @@ async def check_tasks_per():
     while True:
         countdown = set_ticktick_update_countdown()
         global tasks
+        global weekly_tasks
         # create second fresh list with every run
         # is also used to remove task whichare removed in ticktick app
         tasks_backup = []
         print(f"{create_time_message()}getting tasks from ticktick server")
         logger.info("getting tasks from ticktick server")
+        new_weekly_tasks = tick.get_weekly_tasks()
+        weekly_tasks = []
+        weekly_tasks = new_weekly_tasks
         async for task in tick.get_task_list():
             # error, can't get project list
             if task["id"] == "":
@@ -87,7 +93,7 @@ async def check_tasks_per():
             tasks_backup.append(task)
             print(f"{create_time_message()}updating tasklist")
             logger.info("updating tasklist")
-        tasks[:] = [task for task in tasks_backup]
+        tasks[:] = [task for task in tasks_backup]        
         await asyncio.sleep(countdown)
 
 
@@ -156,13 +162,16 @@ with open('ip_address.js', 'w') as f:
 class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         global tasks
+        global task_type
         parsed_path = urllib.parse.urlparse(self.path)
         if parsed_path.path == "/update":
             # print(f"{create_time_message()}getting updates...")
             update = {
                 "task_list": tasks,
                 "power": power,
-                "temp": temp
+                "temp": temp,
+                "weekly_tasks": weekly_tasks,
+                "task_type": task_type
             }
             self.send_response(200)
             self.send_header('Content-type', 'text/plain')
@@ -183,6 +192,14 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             tick.complete_task(id, project_id)
             tasks[:] = [
                 task_el for task_el in tasks if task_el["id"] != id]
+        elif parsed_path.path == "/switchtasktype":
+            task_type = urllib.parse.parse_qs(parsed_path.query)["type"][0]
+            print(f"{create_time_message()}switching task type to {task_type}")
+            logger.info(f"switching task type to {task_type}")
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
         elif parsed_path.path == "/sendmessage":
             self.send_response(200)
             self.send_header('Content-type', 'text/plain')

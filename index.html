@@ -13,6 +13,7 @@
 <body>
   <div class="full-page">
     <div class="outer-big-container">
+      <!-- left big container -->
       <div class="big-container pomodoro-container div-style">
         <div class="div-style circle">
           <p id="pom-amount"> - </p>
@@ -28,6 +29,7 @@
           </div>
         </div>
       </div>
+      <!-- right big container -->
       <div class="big-container div-style">
         <div class="task-container">
           <p class="task">getting tasks...</p>
@@ -35,22 +37,25 @@
       </div>
     </div>
     <div class="outer-big-container">
-      <div class="outer-small-container div-style">
-        <div class="inner-small-container">
+      <div class="outer-small-container">
+        <div class="inner-smallest-container  div-style">
           <p class="bottom-text" id="date-time"></p>
+        </div>
+        <div class="inner-smallest-container div-style">
+          <p class="bottom-text" id="weather-text">getting data</p>
         </div>
       </div>
       <div class="outer-small-container">
         <div class="inner-smallest-container div-style">
           <p class="bottom-text" id="power-text">getting data</p>
         </div>
-        <div class="inner-smallest-container div-style">
-          <p class="bottom-text" id="weather-text">getting data</p>
+        <div class="inner-smallest-container div-style button" id="switch-task-btn">
+          <p class="bottom-text" id="switch-task-p">daily</p>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="black-box"></div> -->
+
   <script src="scripts/weather.js"></script>
   <script src="scripts/solar.js"></script>
   <script src="ip_address.js"></script>

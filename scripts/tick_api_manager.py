@@ -124,6 +124,27 @@ class TickTick():
                                 yield task_today
                 await asyncio.sleep(2)
 
+    def get_weekly_tasks(self):
+        weekly_tasks_project_id = "64c1bfc449b211022bfe0ad7"
+        try:
+            response = requests.get( f'https://api.ticktick.com/open/v1/project/{weekly_tasks_project_id}/data', headers=HEADERS, timeout=30)
+            print(colored(f"{self.create_time_message()}Fetching weekly tasks", "magenta"))
+            logger.info(f"Fetching weekly tasks")
+        except requests.exceptions.Timeout:
+            print(colored("Request timed out", "red"))
+            logger.error("Request timed out")
+            return [{"task_name": "SERVER ERROR", "id": ""}]
+        if response.status_code != 200:
+            print(colored(response.text, "red"))
+            logger.error(response.text)
+            return [{"task_name": "SERVER ERROR", "id": ""}]
+        else:    
+            project_data= response.json()
+            print(project_data)
+            task_list = [{"task_name": task["title"], "id": task["id"], "project_id": weekly_tasks_project_id} for task in project_data["tasks"]]
+            print(task_list)
+            return task_list
+
     def complete_task(self, id, project_id):
         response = requests.post(
             f'https://api.ticktick.com/open/v1/project/{project_id}/task/{id}/complete', headers=HEADERS)
