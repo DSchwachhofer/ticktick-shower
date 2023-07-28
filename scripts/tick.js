@@ -9,10 +9,15 @@ var xhr = new XMLHttpRequest();
 
 var tickTimerId
 
+var tasklistBackup = []
+var weeklyTasksBackup = []
+
 var tick = {
-  printTaskList(tasklist, weekly_tasks, task_type) {
+  printTaskList(tasklist, weeklyTasks, taskType) {
     taskContainer.innerHTML = ""
-    if (task_type === "daily") {
+    tasklistBackup = tasklist
+    weeklyTasksBackup = weeklyTasks
+    if (taskType === "daily") {
       if (tasklist.length === 0) {
         var taskEL = document.createElement("p")
         taskEL.setAttribute("class", "task")
@@ -37,7 +42,7 @@ var tick = {
         }
       }
     } else {
-      if (weekly_tasks.length === 0) {
+      if (weeklyTasks.length === 0) {
         var taskEL = document.createElement("p")
         taskEL.setAttribute("class", "task")
         taskEL.innerText = "you have finished all tasks for this week"
@@ -48,16 +53,16 @@ var tick = {
         headerEL.setAttribute("class", "task button")
         headerEL.innerText = "Weekly Tasks:"
         taskContainer.appendChild(headerEL)
-        for (var i = 0; i < weekly_tasks.length; i++) {
-          // console.log(weekly_tasks)
+        for (var i = 0; i < weeklyTasks.length; i++) {
+          // console.log(weeklyTasks)
           var taskEL = document.createElement("p")
           taskEL.setAttribute("class", "task button")
-          taskEL.innerText = "□ " + weekly_tasks[i]["task_name"]
+          taskEL.innerText = "□ " + weeklyTasks[i]["task_name"]
           taskContainer.appendChild(taskEL)
           taskEL.addEventListener("click", function () {
             this.style.textDecoration = "line-through"
           })
-          taskEL.addEventListener("click", this.completeTask.bind(this, weekly_tasks[i]["id"], weekly_tasks[i]["project_id"], taskEL))
+          taskEL.addEventListener("click", this.completeTask.bind(this, weeklyTasks[i]["id"], weeklyTasks[i]["project_id"], taskEL))
         }
       }
     }
@@ -101,9 +106,11 @@ var tick = {
 switchTaskBtn.addEventListener("click", function () {
   if (switchBtnText === "show weekly") {
     switchBtnText = "show daily"
+    tick.printTaskList(tasklistBackup, weeklyTasksBackup, "weekly")
     tick.switchTaskType("weekly")
   } else {
     switchBtnText = "show weekly"
+    tick.printTaskList(tasklistBackup, weeklyTasksBackup, "daily")
     tick.switchTaskType("daily")
   }
   switchTaskEl.innerText = switchBtnText
