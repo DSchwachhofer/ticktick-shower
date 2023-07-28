@@ -1,4 +1,7 @@
 var dateTimeEl = document.getElementById("date-time")
+var smallTimeEl = document.getElementById("small-time-container")
+var clockPageEl = document.getElementById("clock-page")
+var bigClockEl = document.getElementById("big-clock")
 
 var clock = {
   formatTime(time) {
@@ -21,6 +24,7 @@ var clock = {
     var dateTime = hours + ":" + minutes
 
     dateTimeEl.innerText = dateTime
+    bigClockEl.innerText = dateTime
   },
 
   startClock() {
@@ -28,3 +32,10 @@ var clock = {
   }
 }
 
+smallTimeEl.addEventListener("click", function () {
+  clockPageEl.style.display = "flex"
+})
+
+clockPageEl.addEventListener("click", function () {
+  clockPageEl.style.display = "none"
+})
