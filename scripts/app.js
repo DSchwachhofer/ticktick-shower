@@ -4,15 +4,16 @@ var xhr = new XMLHttpRequest();
 
 var allData = {
   "temp": 0,
-  "power": -1,
+  "weather_icon": "01n",
+  "power": -100,
   "task_list": [],
   "weekly_tasks": [],
   "task_type": "daily"
 }
 
 function updateAll(data) {
-  if (data["temp"] !== allData["temp"]) {
-    weather.printWeather(data["temp"])
+  if (data["temp"] !== allData["temp"] || data["weather_icon"] !== allData["weather_icon"]) {
+    weather.printWeather(data["temp"], data["weather_icon"])
   }
   if (data["power"] !== allData["power"]) {
     solar.printPower(data["power"])
@@ -46,7 +47,7 @@ function getUpdate() {
       count = count + 1
       noData = {
         "temp": "--",
-        "power": -1,
+        "power": -100,
         "task_list": [{ task_name: "SERVER NOT RUNNING" }],
       }
       if (count === 5) {

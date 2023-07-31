@@ -2,6 +2,7 @@ var dateTimeEl = document.getElementById("date-time")
 var smallTimeEl = document.getElementById("small-time-container")
 var clockPageEl = document.getElementById("clock-page")
 var bigClockEl = document.getElementById("big-clock")
+var mainPageEl = document.getElementById("main-page")
 
 var clock = {
   formatTime(time) {
@@ -33,9 +34,11 @@ var clock = {
 }
 
 smallTimeEl.addEventListener("click", function () {
-  clockPageEl.style.display = "flex"
+  clockPageEl.classList.remove("none")
+  mainPageEl.classList.add("none")
 })
 
 clockPageEl.addEventListener("click", function () {
-  clockPageEl.style.display = "none"
+  clockPageEl.classList.add("none")
+  mainPageEl.classList.remove("none")
 })

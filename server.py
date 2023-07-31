@@ -28,7 +28,8 @@ send_whats_app = SendWhatsApp()
 
 tasks = []
 temp = 0
-power = -1
+weather_icon = "01n"
+power = -100
 weekly_tasks = []
 task_type = "daily"
 
@@ -101,9 +102,12 @@ async def check_tasks_per():
 async def check_weather_per():
     while True:
         global temp
+        global weather_icon
         print(f"{create_time_message()}getting weather_data from open weather server")
         logger.info("getting weather_data from open weather server")
-        temp = weather.get_weather()
+        weather_data = weather.get_weather()
+        temp = weather_data["temp"]
+        weather_icon = weather_data["icon"]
         print(f"{create_time_message()}updating weather")
         logger.info("updating weather")
         # SEND WEATHER DATA TO CLIENTS
@@ -171,6 +175,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
                 "task_list": tasks,
                 "power": power,
                 "temp": temp,
+                "weather_icon": weather_icon,
                 "weekly_tasks": weekly_tasks,
                 "task_type": task_type
             }

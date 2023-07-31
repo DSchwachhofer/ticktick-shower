@@ -14,4 +14,7 @@ class SolarManager():
 
     def get_power(self):
         s = solaredge.Solaredge(API_KEY)
-        return s.get_current_power_flow(SITE_ID)["siteCurrentPowerFlow"]["PV"]["currentPower"]
+        data = s.get_current_power_flow(SITE_ID)
+        # print(data)
+        power_difference = data["siteCurrentPowerFlow"]["PV"]["currentPower"] - data["siteCurrentPowerFlow"]["LOAD"]["currentPower"]
+        return power_difference

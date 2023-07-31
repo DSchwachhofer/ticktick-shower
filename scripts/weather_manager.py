@@ -28,9 +28,16 @@ class WeatherManager():
     def get_weather(self):
         try:
             response = requests.get(url=ENDPOINT, params=params, timeout=30)
-            temp = response.json()["main"]["temp"]
+            data = response.json()
+            # print(data)
+            temp = data["main"]["temp"]
+            weather_icon = data ["weather"][0]["icon"]
+            weather_data = {
+                "temp": temp,
+                "icon": weather_icon  
+            }
         except requests.exceptions.Timeout:
             print(colored("Request timed out", "red"))
             logger.error("Request timed out")
             return "SERVER ERROR"
-        return temp
+        return weather_data

@@ -11,53 +11,62 @@
 </head>
 
 <body>
-  <div class="full-page" id="clock-page">
-    <div class="big-clock-container button div-style">
-      <p id="big-clock">0:00</p>
-      <p id="big-weather">-</p>
+  <div class="none" id="clock-page">
+    <div class="full-page">
+      <div class="big-clock-container button div-style">
+        <p id="big-clock">0:00</p>
+        <div id="big-weather-div">
+          <p id="big-weather">-</p>
+          <img id="big-weather-icon" src="http://openweathermap.org/img/wn/10d@2x.png">
+        </div>
+      </div>
     </div>
   </div>
-  <div class="full-page">
-    <div class="outer-big-container">
-      <!-- left big container -->
-      <div class="big-container pomodoro-container div-style">
-        <div class="div-style circle">
-          <div id="pomodoro-inner-circle"></div>
-          <p id="pom-amount"> - </p>
-          <p id="countdown"></p>
-          <p id="should-work">start work</p>
-        </div>
-        <div class="timer-btn-container">
-          <div class="timer-btn button" id="timer-start-btn">
-            <p class="timer-btn-text">start</p>
+  <div id="main-page">
+    <div class="full-page">
+      <div class="outer-big-container">
+        <!-- left big container -->
+        <div class="big-container pomodoro-container div-style">
+          <div class="div-style circle">
+            <div id="pomodoro-inner-circle"></div>
+            <p id="pom-amount"> - </p>
+            <p id="countdown"></p>
+            <p id="should-work">start work</p>
           </div>
-          <div class="timer-btn button" id="timer-cancel-btn">
-            <p class="timer-btn-text">cancel</p>
+          <div class="timer-btn-container">
+            <div class="timer-btn button" id="timer-start-btn">
+              <p class="timer-btn-text">start</p>
+            </div>
+            <div class="timer-btn button" id="timer-cancel-btn">
+              <p class="timer-btn-text">cancel</p>
+            </div>
+          </div>
+        </div>
+        <!-- right big container -->
+        <div class="big-container div-style">
+          <div class="task-container">
+            <p class="task">getting tasks...</p>
           </div>
         </div>
       </div>
-      <!-- right big container -->
-      <div class="big-container div-style">
-        <div class="task-container">
-          <p class="task">getting tasks...</p>
+      <div class="outer-big-container">
+        <div class="outer-small-container">
+          <div class="inner-smallest-container button div-style" id="small-time-container">
+            <p class="bottom-text" id="date-time"></p>
+          </div>
+          <div class="inner-smallest-container div-style">
+            <!-- <p class="bottom-text" id="weather-text">getting data</p> -->
+            <p class="bottom-text" id="weather-text">-8°C</p>
+            <img id="weather-icon" src="http://openweathermap.org/img/wn/10d@2x.png">
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="outer-big-container">
-      <div class="outer-small-container">
-        <div class="inner-smallest-container button div-style" id="small-time-container">
-          <p class="bottom-text" id="date-time"></p>
-        </div>
-        <div class="inner-smallest-container div-style">
-          <p class="bottom-text" id="weather-text">getting data</p>
-        </div>
-      </div>
-      <div class="outer-small-container">
-        <div class="inner-smallest-container div-style">
-          <p class="bottom-text" id="power-text">getting data</p>
-        </div>
-        <div class="inner-smallest-container div-style button" id="switch-task-btn">
-          <p class="bottom-text" id="switch-task-p">daily</p>
+        <div class="outer-small-container">
+          <div class="inner-smallest-container div-style">
+            <p class="bottom-text" id="power-text">getting data</p>
+          </div>
+          <div class="inner-smallest-container div-style button" id="switch-task-btn">
+            <p class="bottom-text" id="switch-task-p">daily</p>
+          </div>
         </div>
       </div>
     </div>

@@ -11,6 +11,18 @@ body {
   font-family: Avenir, Arial, Helvetica, sans-serif;
 }
 
+.none {
+  display: none;
+}
+
+.green {
+  color: #39ff14;
+}
+
+.red {
+  color: #C63300;
+}
+
 .full-page {
   display: flex;
   justify-content: center;
@@ -18,10 +30,6 @@ body {
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-}
-
-#clock-page {
-  display: none;
 }
 
 .big-clock-container {
@@ -41,11 +49,12 @@ body {
   top: 4vmin;
 }
 
-#big-weather {
+#big-weather-div {
   font-size: 4vmin;
   margin: 0;
   position: relative;
   bottom: 4vmin;
+  display: flex;
 }
 
 .div-style {
@@ -97,10 +106,14 @@ body {
   height: 100%;
 }
 
+#weather-text {
+  left: 5%;
+  position: relative;
+}
 
-.black-box {
-  width: 100%;
-  height: 200px;
+#weather-icon {
+  left: 5%;
+  position: relative;
 }
 
 
