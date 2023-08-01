@@ -233,7 +233,7 @@ async def main():
             print(f"{create_time_message()}Starting new threads for server tasks")
             logger.info("Starting new threads for server tasks")
             tasks = [
-                # asyncio.create_task(check_tasks_per()),
+                asyncio.create_task(check_tasks_per()),
                 asyncio.create_task(check_weather_per()),
                 asyncio.create_task(check_solar_power_per())
             ]
