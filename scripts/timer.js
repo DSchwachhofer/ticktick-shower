@@ -27,7 +27,7 @@ var audio = new Audio()
 
 //function to play audio files.
 function playAudio(file) {
-  var filePath = "./assets/" + file + ".mp3"
+  var filePath = "./assets/audio/" + file + ".mp3"
   audio.src = filePath
   // audio = new Audio(filePath);
   audio.play();

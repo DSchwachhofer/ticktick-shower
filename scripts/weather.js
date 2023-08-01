@@ -17,10 +17,11 @@ var weather = {
     } else {
       weatherIconEl.classList.remove("none")
       weatherEl.style.left = "5%"
+      var iconPath = "./assets/weather-icons/" + icon + ".png"
       weatherEl.innerHTML = Math.round(temp) + "°C"
-      weatherIconEl.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+      weatherIconEl.src = iconPath
       bigWeatherEl.innerText = temp + "°C"
-      bigWeatherIconEl.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+      bigWeatherIconEl.src = iconPath
     }
   }
 }
