@@ -153,6 +153,111 @@ body {
   margin-top: 0;
 }
 
+.habit-ui-container {
+  font-size: 25px;
+  width:auto;
+  height: 84%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.habit-ui-div-style {
+  border: solid 2px;
+  border-radius: 20px;
+}
+
+.habit-ui-inner-div{
+  width: auto;
+  height: 20%;
+}
+
+.habit-ui-color-div {
+ margin: 0px auto;
+  width: 46%;
+  height: 20%;
+}
+
+.habit-input-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.habit-ui-button-container {
+  display: flex;
+  justify-content: space-between
+}
+
+.habit-ui-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 46%;
+  height: 100%;
+}
+
+.habit-rep-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  height: 100%;
+}
+
+.habit-rep-text-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
+.habit-inner-div { 
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+}
+
+.habit-p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.habit-bar {
+  height: 10px;
+  margin-bottom: 20px;
+}
+
+
+.habit-input {
+  background-color: black;
+  border-radius: 0;
+  text-align: center;
+  font-size: 30px;
+  color:#39ff14;
+  border: none;
+}
+
+.habit-input:focus {
+  outline: none;
+}
+
+.habit-input::placeholder{
+  color:#176608
+}
+
+.habit-input::-webkit-input-placeholder {
+  color: #176608;
+}
+
+.repetition-input {
+  width: 30%;
+  text-align: center;
+}
+
+
 #pom-amount {
   text-align: center;
   font-size: 25px;
@@ -240,6 +345,11 @@ body {
     font-size: 20px;
   }
 
+  .habit-inner-div {
+    font-size: 20px;
+  }
+
+
   .bottom-text {
     font-size: 20px;
   }
@@ -255,6 +365,10 @@ body {
   }
 
   .task {
+    font-size: 20px;
+  }
+
+  .habit-inner-div {
     font-size: 20px;
   }
 
