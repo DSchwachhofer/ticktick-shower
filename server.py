@@ -56,9 +56,9 @@ def set_ticktick_update_countdown():
         logger.info("Setting TickTick update interval to 15 minutes")
         return 900
     else:
-        print(f"{create_time_message()}Setting TickTick update interval to 10 seconds")
-        logger.info("Setting TickTick update interval to 10 seconds")
-        return 10
+        print(f"{create_time_message()}Setting TickTick update interval to 1 minute")
+        logger.info("Setting TickTick update interval to 1 minute")
+        return 60
 
 
 async def check_tasks_per():
@@ -74,28 +74,28 @@ async def check_tasks_per():
         new_weekly_tasks = tick.get_weekly_tasks()
         weekly_tasks = []
         weekly_tasks = new_weekly_tasks
-        async for task in tick.get_task_list():
-            # error, can't get project list
-            if task["id"] == "":
-                tasks = []
-                tasks.append(task)
-                countdown = 900
-            # start with empty project list
-            elif not tasks:
-                tasks.append(task)
-            else:
-                # First, check if the task is in the list
-                if any(task_el["id"] == task["id"] for task_el in tasks):
-                    # If it is, update it
-                    tasks[:] = [task_el if task_el["id"] !=
-                                task["id"] else task for task_el in tasks]
-                else:
-                    # If it's not, add it
-                    tasks.append(task)
-            tasks_backup.append(task)
-            print(f"{create_time_message()}updating tasklist")
-            logger.info("updating tasklist")
-        tasks[:] = [task for task in tasks_backup]        
+        # async for task in tick.get_task_list():
+        #     # error, can't get project list
+        #     if task["id"] == "":
+        #         tasks = []
+        #         tasks.append(task)
+        #         countdown = 900
+        #     # start with empty project list
+        #     elif not tasks:
+        #         tasks.append(task)
+        #     else:
+        #         # First, check if the task is in the list
+        #         if any(task_el["id"] == task["id"] for task_el in tasks):
+        #             # If it is, update it
+        #             tasks[:] = [task_el if task_el["id"] !=
+        #                         task["id"] else task for task_el in tasks]
+        #         else:
+        #             # If it's not, add it
+        #             tasks.append(task)
+        #     tasks_backup.append(task)
+        #     print(f"{create_time_message()}updating tasklist")
+        #     logger.info("updating tasklist")
+        # tasks[:] = [task for task in tasks_backup]        
         await asyncio.sleep(countdown)
 
 
