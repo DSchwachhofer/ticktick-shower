@@ -1,0 +1,42 @@
+[
+  {
+    "habit": "Zähneputzen",
+    "percentage": 1,
+    "color": "#00FFFF",
+    "repetition": 1,
+    "duration": "Day",
+    "id": 1
+  },
+  {
+    "habit": "Nasenspray Morgens",
+    "percentage": 0.1,
+    "color": "#00FFFF",
+    "repetition": 1,
+    "duration": "Day",
+    "id": 2
+  },
+  {
+    "habit": "Rasieren",
+    "percentage": 0.5,
+    "color": "#00FFFF",
+    "repetition": 2,
+    "duration": "Week",
+    "id": 3
+  },
+  {
+    "habit": "Auto Waschen",
+    "percentage": 0.9,
+    "color": "#00FFFF",
+    "repetition": 6,
+    "duration": "Year",
+    "id": 4
+  },
+  {
+    "habit": "Freunde Treffen",
+    "percentage": 1.2,
+    "color": "#00FFFF",
+    "repetition": 1,
+    "duration": "Month",
+    "id": 5
+  }
+]

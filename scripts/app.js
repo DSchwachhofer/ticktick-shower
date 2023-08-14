@@ -9,6 +9,7 @@ var allData = {
   task_list: [],
   weekly_tasks: [],
   task_type: "daily",
+  habits: "",
 };
 
 function updateAll(data) {
@@ -35,7 +36,7 @@ function updateAll(data) {
   //   data["task_type"]
   // );
   // }
-  habits.printHabitList();
+  habits.printHabitList(data["habits"]);
 
   allData = data;
 }

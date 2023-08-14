@@ -2,6 +2,7 @@ from scripts.tick_api_manager import TickTick
 from scripts.solar_manager import SolarManager
 from scripts.weather_manager import WeatherManager
 from scripts.send_whatsapp import SendWhatsApp
+from scripts.habits import Habits
 import http.server
 import socketserver
 import json
@@ -25,6 +26,7 @@ tick = TickTick()
 solar = SolarManager()
 weather = WeatherManager()
 send_whats_app = SendWhatsApp()
+habits = Habits()
 
 tasks = []
 temp = 0
@@ -32,7 +34,7 @@ weather_icon = "01n"
 power = -100
 weekly_tasks = []
 task_type = "daily"
-
+habits_data = ""
 
 # configure logging module
 logger = logging.getLogger("ticktick_logger")
@@ -59,7 +61,6 @@ def set_ticktick_update_countdown():
         print(f"{create_time_message()}Setting TickTick update interval to 1 minute")
         logger.info("Setting TickTick update interval to 1 minute")
         return 60
-
 
 async def check_tasks_per():
     while True:
@@ -113,6 +114,15 @@ async def check_weather_per():
         # SEND WEATHER DATA TO CLIENTS
         print(f"{create_time_message()}temp: {temp}°C")
         logger.info(f"temp: {temp}°C")
+        await asyncio.sleep(60)
+
+async def check_habits_per():
+    while True:
+        global habits_data
+        print(f"{create_time_message()}getting habits_data from server")
+        logger.info("getting habits_data from server")
+        habits_data = habits.read_habits_data()
+        print(habits_data)
         await asyncio.sleep(60)
 
 
@@ -177,7 +187,8 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
                 "temp": temp,
                 "weather_icon": weather_icon,
                 "weekly_tasks": weekly_tasks,
-                "task_type": task_type
+                "task_type": task_type,
+                "habits": habits_data
             }
             self.send_response(200)
             self.send_header('Content-type', 'text/plain')
@@ -212,8 +223,6 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             send_whats_app.send_message()
-        elif parsed_path.path == "/createhabit":
-            print("create new habit")
         else:
             # serve files as usual
             super().do_GET()
@@ -237,7 +246,8 @@ async def main():
             tasks = [
                 asyncio.create_task(check_tasks_per()),
                 asyncio.create_task(check_weather_per()),
-                asyncio.create_task(check_solar_power_per())
+                asyncio.create_task(check_solar_power_per()),
+                asyncio.create_task(check_habits_per())
             ]
 
             await asyncio.sleep(3600)  # sleep for one hour
