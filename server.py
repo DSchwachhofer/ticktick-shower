@@ -212,6 +212,8 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             send_whats_app.send_message()
+        elif parsed_path.path == "/createhabit":
+            print("create new habit")
         else:
             # serve files as usual
             super().do_GET()

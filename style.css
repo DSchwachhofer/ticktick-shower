@@ -156,27 +156,26 @@ body {
 .habit-ui-container {
   font-size: 25px;
   width:auto;
-  height: 84%;
+  height: 77%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
+  margin-top: 12%
 }
 
 .habit-ui-div-style {
   border: solid 2px;
-  border-radius: 20px;
+  border-radius: 10px;
+}
+
+.habit-ui-color-div {
+  border-radius: 10px;
 }
 
 .habit-ui-inner-div{
   width: auto;
-  height: 20%;
-}
-
-.habit-ui-color-div {
- margin: 0px auto;
-  width: 46%;
-  height: 20%;
+  height: 15%;
 }
 
 .habit-input-div{
@@ -194,7 +193,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 46%;
+  width: 42%;
   height: 100%;
 }
 
@@ -202,7 +201,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35%;
+  width: 30%;
   height: 100%;
 }
 
@@ -226,7 +225,7 @@ body {
 }
 
 .habit-bar {
-  height: 10px;
+  height: 8px;
   margin-bottom: 20px;
 }
 
