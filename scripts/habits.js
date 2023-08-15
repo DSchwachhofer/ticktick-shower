@@ -1,9 +1,7 @@
 var habitsContainer = document.querySelector(".task-container");
 
 var habitColors = ["#00FFFF", "#FFFF00", "#FF00FF", "#0000FF", "#800080"];
-
 var repetitionOptions = [1, 2, 3, 4, 5, 6];
-
 var durationOptions = ["Day", "Week", "Month", " Year"];
 
 var habitGreenColor = "#39ff14";
@@ -11,7 +9,12 @@ var habitRedColor = "#C63300";
 
 var showModal = false;
 
+var xhr = new XMLHttpRequest();
+
+// local representation of habits server data in json format
 var habitData;
+
+// -------------- HELPER FUNCTIONS ---------------------
 
 function sortListOfHabits(habitList) {
   var sortedList = [...habitList];
@@ -21,7 +24,17 @@ function sortListOfHabits(habitList) {
   return sortedList;
 }
 
-// function to handle switch button logic
+function getHighestId() {
+  var highestUsedId = 0;
+  for (var habit of JSON.parse(habitData)) {
+    if (habit.id > highestUsedId) {
+      highestUsedId = habit.id;
+    }
+  }
+  return highestUsedId + 1;
+}
+
+// functions to handle switch button logic
 function switchBtn(options, currentVal) {
   // get index of current value.
   var currentIndex = options.findIndex(function (el) {
@@ -54,8 +67,12 @@ function colorBtnHandler(habit, btnEl) {
   habit.color = nextValue;
 }
 
+// ---------------- HABITS OBJECT ------------------------
+
 var habits = {
-  // function to show UI to create/edit habits
+  // ------------------- CREATE AND EDIT HABITS
+  // renders UI to create/edit habits
+
   createEditHabit(data) {
     showModal = true;
     var repetitionBtnText = repetitionOptions[0];
@@ -64,11 +81,10 @@ var habits = {
       habitColors[Math.floor(Math.random() * habitColors.length)];
     var newHabit = {
       habit: "",
-      percentage: 0,
-      color: "",
+      color: colorBtnColor,
       repetition: 1,
       duration: "Day",
-      id: Math.random(),
+      id: getHighestId(),
     };
     if (data.type === "edit") {
       repetitionBtnText = data.habitData.repetition;
@@ -189,15 +205,16 @@ var habits = {
 
     cancelBtn.addEventListener("click", function () {
       showModal = false;
-      habits.printHabitList();
+      habits.printHabitList(habitData);
     });
 
     okBtn.addEventListener("click", function () {
       newHabit.habit = habitInput.value;
       // update habits list
-      console.log(newHabit);
+      // console.log(newHabit);
       showModal = false;
-      habits.printHabitList();
+      habits.printHabitList(habitData);
+      habits.editHabitsServer(JSON.stringify(newHabit));
     });
   },
 
@@ -205,8 +222,10 @@ var habits = {
   // gets data from server and renders habit element on screen
 
   printHabitList(habitServerData) {
-    console.log(habitServerData);
-    habitData = JSON.parse(habitServerData);
+    habitData = habitServerData;
+    habitParsedData = JSON.parse(habitServerData);
+    // console.log(habitParsedData);
+    // prevent server update when modal is open
     if (showModal) {
       return;
     }
@@ -228,7 +247,7 @@ var habits = {
     headerAdd.innerText = "+";
     headerEL.appendChild(headerAdd);
 
-    var sortedHabits = sortListOfHabits(habitData);
+    var sortedHabits = sortListOfHabits(habitParsedData);
 
     for (var habit of sortedHabits) {
       this.showHabit(habit);
@@ -300,5 +319,20 @@ var habits = {
   },
   completeHabitHandler(habit) {
     console.log("completing " + habit.habit);
+  },
+
+  // function to post new/edited habit to server.
+  editHabitsServer(habit) {
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // EDIT HABIT ON SCREEN
+        console.log("Editing Habits");
+      }
+    };
+
+    var url = "http://" + ip_address + ":7000/edithabits";
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(habit);
   },
 };
