@@ -11,49 +11,6 @@ var habitRedColor = "#C63300";
 
 var showModal = false;
 
-// var habitData = [
-//   {
-//     habit: "Zähneputzen",
-//     percentage: 1,
-//     color: habitColors[Math.floor(Math.random() * habitColors.length)],
-//     repetition: 1,
-//     duration: "Day",
-//     id: 1,
-//   },
-//   {
-//     habit: "Nasenspray Morgens",
-//     percentage: 0.1,
-//     color: habitColors[Math.floor(Math.random() * habitColors.length)],
-//     repetition: 1,
-//     duration: "Day",
-//     id: 2,
-//   },
-//   {
-//     habit: "Rasieren",
-//     percentage: 0.5,
-//     color: habitColors[Math.floor(Math.random() * habitColors.length)],
-//     repetition: 2,
-//     duration: "Week",
-//     id: 3,
-//   },
-//   {
-//     habit: "Auto Waschen",
-//     percentage: 0.9,
-//     color: habitColors[Math.floor(Math.random() * habitColors.length)],
-//     repetition: 6,
-//     duration: "Year",
-//     id: 4,
-//   },
-//   {
-//     habit: "Freunde Treffen",
-//     percentage: 1.2,
-//     color: habitColors[Math.floor(Math.random() * habitColors.length)],
-//     repetition: 1,
-//     duration: "Month",
-//     id: 5,
-//   },
-// ];
-
 var habitData;
 
 function sortListOfHabits(habitList) {
@@ -244,6 +201,9 @@ var habits = {
     });
   },
 
+  // --------------- PRINT HABITS ----------------------
+  // gets data from server and renders habit element on screen
+
   printHabitList(habitServerData) {
     console.log(habitServerData);
     habitData = JSON.parse(habitServerData);
@@ -341,6 +301,4 @@ var habits = {
   completeHabitHandler(habit) {
     console.log("completing " + habit.habit);
   },
-
-  getHabits() {},
 };

@@ -13,23 +13,9 @@ var allData = {
 };
 
 function updateAll(data) {
-  if (
-    data["temp"] !== allData["temp"] ||
-    data["weather_icon"] !== allData["weather_icon"]
-  ) {
-    weather.printWeather(data["temp"], data["weather_icon"]);
-  }
-  if (data["power"] !== allData["power"]) {
-    solar.printPower(data["power"]);
-  }
+  weather.printWeather(data["temp"], data["weather_icon"]);
+  solar.printPower(data["power"]);
 
-  // if (
-  //   JSON.stringify(data["task_list"]) !==
-  //     JSON.stringify(allData["task_list"]) ||
-  //   JSON.stringify(data["weekly_tasks"]) !==
-  //     JSON.stringify(allData["weekly_tasks"]) ||
-  //   JSON.stringify(data["task_type"]) !== JSON.stringify(allData["task_type"])
-  // ) {
   // tick.printTaskList(
   //   data["task_list"],
   //   data["weekly_tasks"],
@@ -37,7 +23,6 @@ function updateAll(data) {
   // );
   // }
   habits.printHabitList(data["habits"]);
-
   allData = data;
 }
 
@@ -70,4 +55,4 @@ function getUpdate() {
 }
 
 getUpdate();
-setInterval(getUpdate, 5000);
+setInterval(getUpdate, 60000);

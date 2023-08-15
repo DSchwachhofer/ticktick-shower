@@ -5,7 +5,8 @@
     "color": "#00FFFF",
     "repetition": 1,
     "duration": "Day",
-    "id": 1
+    "id": 1,
+    "starttime": 1692000689.583884
   },
   {
     "habit": "Nasenspray Morgens",
@@ -13,7 +14,8 @@
     "color": "#00FFFF",
     "repetition": 1,
     "duration": "Day",
-    "id": 2
+    "id": 2,
+    "starttime": 1691100689.583884
   },
   {
     "habit": "Rasieren",
@@ -21,7 +23,8 @@
     "color": "#00FFFF",
     "repetition": 2,
     "duration": "Week",
-    "id": 3
+    "id": 3,
+    "starttime": 1691900689.583884
   },
   {
     "habit": "Auto Waschen",
@@ -29,7 +32,8 @@
     "color": "#00FFFF",
     "repetition": 6,
     "duration": "Year",
-    "id": 4
+    "id": 4,
+    "starttime": 1691800689.583884
   },
   {
     "habit": "Freunde Treffen",
@@ -37,6 +41,7 @@
     "color": "#00FFFF",
     "repetition": 1,
     "duration": "Month",
-    "id": 5
+    "id": 5,
+    "starttime": 1691700689.583884
   }
 ]

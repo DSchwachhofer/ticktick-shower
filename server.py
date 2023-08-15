@@ -122,7 +122,7 @@ async def check_habits_per():
         print(f"{create_time_message()}getting habits_data from server")
         logger.info("getting habits_data from server")
         habits_data = habits.read_habits_data()
-        print(habits_data)
+        # print(habits_data)
         await asyncio.sleep(60)
 
 
