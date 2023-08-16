@@ -227,6 +227,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             # serve files as usual
             super().do_GET()
     def do_POST(self):
+        global habits_data
         parsed_path = urllib.parse.urlparse(self.path)
         if parsed_path.path == "/edithabits":
             content_length = int(self.headers['Content-Length'])
@@ -235,7 +236,19 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             logger.info(f"Editing Habit")
 
             habits.edit_habits(json.loads(habit_data))
+            habits_data = habits.read_habits_data()
             
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            self.wfile.write(b"POST request received at /update")
+        if parsed_path.path == "/completehabit":
+            content_length = int(self.headers['Content-Length'])
+            habit_data = self.rfile.read(content_length)
+            print(f"{create_time_message()}Completing Habit")
+            logger.info(f"Completing Habit")
+            habits.complete_habit(json.loads(habit_data))
+            habits_data = habits.read_habits_data()            
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()

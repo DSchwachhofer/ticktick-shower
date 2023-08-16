@@ -56,16 +56,25 @@ class Habits():
         # check if habit id already exists.
         with open("./assets/data/habits-data.json", mode="r") as file:
             habits_data = json.load(file)
-            for habit in habits_data:
+            edit_type = "new"
+            for index, habit in enumerate(habits_data):
                 if edited_habit["id"] == habit["id"]:
-                    current_time = dt.datetime.now()
-                    edited_habit["starttime"] = current_time.timestamp()
-                    habit = edited_habit
-                    return
-            habits_data.append(edited_habit)
+                    habits_data[index] = edited_habit
+                    edit_type = "edit"
+            if edit_type == "new":
+                current_time = dt.datetime.now()
+                edited_habit["starttime"] = current_time.timestamp()    
+                habits_data.append(edited_habit)
         with open("./assets/data/habits-data.json", mode="w") as file:
             json.dump(habits_data, file, indent=4)
-            
 
-        # create current timestamp only when new habit is created
-        
+    def complete_habit(self, habit_to_complete):
+        print("Completing Habit")
+        with open("./assets/data/habits-data.json", mode="r") as file:
+            habits_data = json.load(file)
+            for index, habit in enumerate(habits_data):
+                if habit_to_complete["id"] == habit["id"]:
+                    current_time = dt.datetime.now()
+                    habits_data[index]["starttime"] = current_time.timestamp()  
+        with open("./assets/data/habits-data.json", mode="w") as file:
+            json.dump(habits_data, file, indent=4)

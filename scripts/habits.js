@@ -289,7 +289,7 @@ var habits = {
     // create chart bar
     var habitBar = document.createElement("div");
     habitBar.setAttribute("class", "habit-bar");
-    habitBar.style.width = habit.percentage * 100 + "%";
+    habitBar.style.width = 5 + habit.percentage * 95 + "%";
     if (habit.percentage >= 0.9 && habit.percentage <= 1) {
       habitBar.style.backgroundColor = habitGreenColor;
     } else if (habit.percentage > 1) {
@@ -320,6 +320,18 @@ var habits = {
   },
   completeHabitHandler(habit) {
     console.log("completing " + habit.habit);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // EDIT HABIT ON SCREEN
+        console.log("Completing " + habit.habit);
+        getUpdate();
+      }
+    };
+
+    var url = "http://" + ip_address + ":7000/completehabit";
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(habit));
   },
 
   // function to post new/edited habit to server.
@@ -328,6 +340,7 @@ var habits = {
       if (xhr.readyState === 4 && xhr.status === 200) {
         // EDIT HABIT ON SCREEN
         console.log("Editing Habits");
+        getUpdate();
       }
     };
 
