@@ -25,24 +25,29 @@ class Habits():
         
     
     def calculate_percentage(self, habit):
-
+        # print(f"CALCULATE PERCENTAGE: {habit}")
         # get time difference between start of habit and current time
         current_time = dt.datetime.now()
-        start_time = dt.datetime.fromtimestamp(habit["starttime"])
+        try:
+            start_time = dt.datetime.fromtimestamp(habit["starttime"])
 
-        time_difference = round((current_time - start_time).total_seconds())
+            time_difference = round((current_time - start_time).total_seconds())
 
-        percentage = time_difference / self.get_habit_duration(habit["repetition"], habit["duration"])
-
-        return percentage
+            percentage = time_difference / self.get_habit_duration(habit["repetition"], habit["duration"])
+            # print(percentage)
+        except:
+            return 0
+        else:
+            return percentage
     
     def read_habits_data(self):
         with open("./assets/data/habits-data.json", mode="r") as file:
             habits_data = json.load(file)
             # find way to calculate percentages for each habit
-            habits_parsed = json.loads(habits_data)
-            calculated_habits = [{**habit, "percentage": self.calculate_percentage(habit)}for habit in habits_parsed]  
-            print(calculated_habits)
+            # habits_parsed = json.loads(habits_data)
+            # print(f"HABITS DATA: {habits_data}")
+            calculated_habits = [{**habit, "percentage": self.calculate_percentage(habit)}for habit in habits_data]  
+            # print(calculated_habits)
             return json.dumps(calculated_habits )
         
     def edit_habits(self, edited_habit):

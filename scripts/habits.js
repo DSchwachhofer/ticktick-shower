@@ -223,6 +223,7 @@ var habits = {
 
   printHabitList(habitServerData) {
     habitData = habitServerData;
+    console.log(habitServerData);
     habitParsedData = JSON.parse(habitServerData);
     // console.log(habitParsedData);
     // prevent server update when modal is open
