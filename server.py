@@ -33,7 +33,7 @@ temp = 0
 weather_icon = "01n"
 power = -100
 weekly_tasks = []
-task_type = "daily"
+task_type = "habits"
 habits_data = ""
 
 # configure logging module

@@ -96,20 +96,6 @@ var tick = {
     xhr.send();
   },
 
-  switchTaskType(type) {
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        // Remove Task from Screen
-        console.log("Switching Task Type");
-      }
-    };
-    xhr.open(
-      "GET",
-      "http://" + ip_address + ":7000/switchtasktype?type=" + type
-    );
-    xhr.send();
-  },
-
   updateTasks() {
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {

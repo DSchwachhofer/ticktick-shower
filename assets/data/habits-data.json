@@ -24,7 +24,7 @@
         "repetition": 2,
         "duration": "Week",
         "id": 3,
-        "starttime": 1692203382.829247
+        "starttime": 1692203717.280022
     },
     {
         "habit": "Auto Waschen",
@@ -37,8 +37,8 @@
     },
     {
         "habit": "Freunde Treffen",
-        "percentage": 1.2,
-        "color": "#00FFFF",
+        "percentage": 0.19407291666666668,
+        "color": "#FFFF00",
         "repetition": 1,
         "duration": "Month",
         "id": 5,
@@ -61,5 +61,12 @@
         "id": 7,
         "starttime": 1692202478.414673,
         "percentage": 0.010462962962962962
+    },
+    {
+        "habit": "Friseur",
+        "color": "#FFFF00",
+        "repetition": 1,
+        "duration": "Month",
+        "id": 8
     }
 ]

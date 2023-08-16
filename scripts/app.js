@@ -8,21 +8,27 @@ var allData = {
   power: -100,
   task_list: [],
   weekly_tasks: [],
-  task_type: "daily",
+  task_type: "habits",
   habits: "",
 };
 
 function updateAll(data) {
   weather.printWeather(data["temp"], data["weather_icon"]);
   solar.printPower(data["power"]);
+  if (data["task_type"] === "habits") {
+    habits.printHabitList(data["habits"]);
+  } else {
+    tick.printTaskList(
+      data["task_list"],
+      data["weekly_tasks"],
+      data["task_type"]
+    );
+  }
 
-  // tick.printTaskList(
-  //   data["task_list"],
-  //   data["weekly_tasks"],
-  //   data["task_type"]
+  //
   // );
   // }
-  habits.printHabitList(data["habits"]);
+
   allData = data;
 }
 
