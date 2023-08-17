@@ -7,7 +7,7 @@ function switchTaskType(type) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       // Remove Task from Screen
-      console.log("Switching Task Type");
+      // console.log("Switching Task Type");
       getUpdate();
     }
   };

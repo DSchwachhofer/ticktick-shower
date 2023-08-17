@@ -5,8 +5,7 @@ class Habits():
     def __init__(self):
         pass
     
-    
-        
+           
     def get_habit_duration(self, repetition, duration):
         day_in_seconds = 60 * 60 * 24
         duration_of_one_repetition = 0
@@ -34,7 +33,6 @@ class Habits():
             time_difference = round((current_time - start_time).total_seconds())
 
             percentage = time_difference / self.get_habit_duration(habit["repetition"], habit["duration"])
-            # print(percentage)
         except:
             return 0
         else:
@@ -43,11 +41,7 @@ class Habits():
     def read_habits_data(self):
         with open("./assets/data/habits-data.json", mode="r") as file:
             habits_data = json.load(file)
-            # find way to calculate percentages for each habit
-            # habits_parsed = json.loads(habits_data)
-            # print(f"HABITS DATA: {habits_data}")
             calculated_habits = [{**habit, "percentage": self.calculate_percentage(habit)}for habit in habits_data]  
-            # print(calculated_habits)
             return json.dumps(calculated_habits )
         
     def edit_habits(self, edited_habit):
@@ -78,3 +72,10 @@ class Habits():
                     habits_data[index]["starttime"] = current_time.timestamp()  
         with open("./assets/data/habits-data.json", mode="w") as file:
             json.dump(habits_data, file, indent=4)
+    
+    def delete_habit(self, habit_to_delete):
+        with open("./assets/data/habits-data.json", mode="r") as file:
+            habits_data = json.load(file)
+            updated_habits = [habit for habit in habits_data if habit["id"] != habit_to_delete["id"]]
+        with open("./assets/data/habits-data.json", mode="w") as file:
+            json.dump(updated_habits, file, indent=4) 

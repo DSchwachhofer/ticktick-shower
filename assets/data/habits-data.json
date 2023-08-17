@@ -1,72 +1,10 @@
 [
     {
         "habit": "Z\u00e4hneputzen",
-        "percentage": 0.0005439814814814814,
-        "color": "#800080",
+        "color": "#FF00FF",
         "repetition": 1,
         "duration": "Day",
         "id": 1,
-        "starttime": 1692203375.112379
-    },
-    {
-        "habit": "Nasenspray Abends",
-        "percentage": 0.0008333333333333334,
-        "color": "#FFFF00",
-        "repetition": 1,
-        "duration": "Day",
-        "id": 2,
-        "starttime": 1692203345.386031
-    },
-    {
-        "habit": "Rasieren",
-        "percentage": 0.0001421957671957672,
-        "color": "#00FFFF",
-        "repetition": 2,
-        "duration": "Week",
-        "id": 3,
-        "starttime": 1692203717.280022
-    },
-    {
-        "habit": "Auto Waschen",
-        "percentage": 0.9,
-        "color": "#00FFFF",
-        "repetition": 6,
-        "duration": "Year",
-        "id": 4,
-        "starttime": 1691800689.583884
-    },
-    {
-        "habit": "Freunde Treffen",
-        "percentage": 0.19407291666666668,
-        "color": "#FFFF00",
-        "repetition": 1,
-        "duration": "Month",
-        "id": 5,
-        "starttime": 1691700689.583884
-    },
-    {
-        "habit": "Test",
-        "color": "#0000FF",
-        "repetition": 3,
-        "duration": " Year",
-        "id": 6,
-        "starttime": 1692202402.158037,
-        "percentage": 0
-    },
-    {
-        "habit": "Something Meaningful",
-        "color": "#FF00FF",
-        "repetition": 1,
-        "duration": "Week",
-        "id": 7,
-        "starttime": 1692202478.414673,
-        "percentage": 0.010462962962962962
-    },
-    {
-        "habit": "Friseur",
-        "color": "#FFFF00",
-        "repetition": 1,
-        "duration": "Month",
-        "id": 8
+        "starttime": 1692237340.866411
     }
 ]

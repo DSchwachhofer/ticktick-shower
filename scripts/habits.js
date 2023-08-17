@@ -181,12 +181,52 @@ var habits = {
     okBtn.setAttribute("class", "habit-ui-button habit-ui-div-style button");
     okBtn.innerText = "Ok";
 
+    var deleteBtn = document.createElement("div");
+    deleteBtn.setAttribute(
+      "class",
+      "habit-ui-button habit-ui-div-style button"
+    );
+    deleteBtn.innerText = "Delete";
+
     habitInputDiv.appendChild(habitInput);
     durationDiv.appendChild(repetitionButton);
     durationDiv.appendChild(repetitionText);
     durationDiv.appendChild(durationButton);
-    buttonDiv.appendChild(cancelBtn);
-    buttonDiv.appendChild(okBtn);
+    // show ok and delete button for edits
+    if (data.type === "edit") {
+      buttonDiv.appendChild(okBtn);
+      buttonDiv.appendChild(deleteBtn);
+
+      okBtn.addEventListener("click", function () {
+        newHabit.habit = habitInput.value;
+        showModal = false;
+        habits.printHabitList(habitData);
+        habits.editHabitsServer(JSON.stringify(newHabit));
+      });
+
+      deleteBtn.addEventListener("click", function () {
+        // console.log("DELETE HABIT");
+        showModal = false;
+        habits.printHabitList(habitData);
+        habits.deleteHabitHandler(data.habitData);
+      });
+    } else {
+      // show ok and cancel button
+      buttonDiv.appendChild(okBtn);
+      buttonDiv.appendChild(cancelBtn);
+
+      cancelBtn.addEventListener("click", function () {
+        showModal = false;
+        habits.printHabitList(habitData);
+      });
+
+      okBtn.addEventListener("click", function () {
+        newHabit.habit = habitInput.value;
+        showModal = false;
+        habits.printHabitList(habitData);
+        habits.editHabitsServer(JSON.stringify(newHabit));
+      });
+    }
 
     // event listeners for buttons:
     repetitionButton.addEventListener(
@@ -202,20 +242,6 @@ var habits = {
       "click",
       colorBtnHandler.bind(this, newHabit, colorDiv)
     );
-
-    cancelBtn.addEventListener("click", function () {
-      showModal = false;
-      habits.printHabitList(habitData);
-    });
-
-    okBtn.addEventListener("click", function () {
-      newHabit.habit = habitInput.value;
-      // update habits list
-      // console.log(newHabit);
-      showModal = false;
-      habits.printHabitList(habitData);
-      habits.editHabitsServer(JSON.stringify(newHabit));
-    });
   },
 
   // --------------- PRINT HABITS ----------------------
@@ -223,7 +249,7 @@ var habits = {
 
   printHabitList(habitServerData) {
     habitData = habitServerData;
-    console.log(habitServerData);
+    // console.log(habitServerData);
     habitParsedData = JSON.parse(habitServerData);
     // console.log(habitParsedData);
     // prevent server update when modal is open
@@ -329,6 +355,23 @@ var habits = {
     };
 
     var url = "http://" + ip_address + ":7000/completehabit";
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(habit));
+  },
+
+  deleteHabitHandler(habit) {
+    // console.log("deleting " + habit.habit);
+    // console.log(habit);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // EDIT HABIT ON SCREEN
+        console.log("Deleted " + habit.habit);
+        getUpdate();
+      }
+    };
+
+    var url = "http://" + ip_address + ":7000/deletehabit";
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(habit));

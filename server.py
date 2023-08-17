@@ -119,10 +119,10 @@ async def check_weather_per():
 async def check_habits_per():
     while True:
         global habits_data
-        print(f"{create_time_message()}getting habits_data from server")
+        print(colored(f"{create_time_message()}getting habits_data from server", "magenta"))
         logger.info("getting habits_data from server")
         habits_data = habits.read_habits_data()
-        print(habits_data)
+        print(colored(habits_data, "magenta"))
         await asyncio.sleep(60)
 
 
@@ -241,7 +241,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(b"POST request received at /update")
+            self.wfile.write(b"POST request received at /edithabits")
         if parsed_path.path == "/completehabit":
             content_length = int(self.headers['Content-Length'])
             habit_data = self.rfile.read(content_length)
@@ -252,7 +252,19 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(b"POST request received at /update")
+            self.wfile.write(b"POST request received at /completehabit")
+        if parsed_path.path == "/deletehabit":
+            content_length = int(self.headers['Content-Length'])
+            habit_data = self.rfile.read(content_length)
+            print(f"{create_time_message()}Deleting Habit")
+            logger.info(f"Deleting Habit")
+            habits.delete_habit(json.loads(habit_data))
+            habits_data = habits.read_habits_data()            
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            self.wfile.write(b"POST request received at /deletehabit")
+
 
       
 
